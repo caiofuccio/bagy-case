@@ -1,0 +1,7 @@
+{
+  "type": "sqlite",
+  "database": "./src/shared/infra/database/database.sqlite3",
+  "entities": [
+    "./src/shared/infra/http/graphql/entities/index.ts"
+  ]
+}
