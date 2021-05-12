@@ -73,7 +73,7 @@ export class OrderService {
     products: Product[],
   ): IProductStatus {
     const productDB = products.find(prod => prod.id === prodInOrder.id);
-    const hasInStock = this.checkSotckAvailable(prodInOrder, productDB);
+    const hasInStock = this.checkStockAvailable(prodInOrder, productDB);
     return {
       hasInStock,
       productDB,
@@ -87,15 +87,15 @@ export class OrderService {
     order: Order,
   ): Promise<string | boolean> {
     const { email } = customer;
-    const resultMessateUrl = await this.mailProvider.sendEmail(
+    const resultMessageUrl = await this.mailProvider.sendEmail(
       email,
       `Order approved ${order.id}`,
       `Order ${order.id}`,
     );
-    return resultMessateUrl;
+    return resultMessageUrl;
   }
 
-  public checkSotckAvailable(
+  public checkStockAvailable(
     prodInOrder: ProductInOrder,
     product: Product | undefined,
   ): boolean {
