@@ -1,14 +1,14 @@
+import { Customer } from '@modules/customer/entities/Customer';
+import { ICustomerRepository } from '@modules/customer/repository/ICustomerRepository';
 import { AddOrderInput } from '@modules/order/schemas/types-input/AddOrderInput';
-import { ProductInOrder } from '@modules/product/schemas/types-input/ProductInOrder';
 import { Product } from '@modules/product/entities/Product';
 import { IProductStatus } from '@modules/product/interfaces/IProductStatus';
 import IProductRepository from '@modules/product/repository/IProductRepository';
-import { ICustomerRepository } from '@modules/customer/repository/ICustomerRepository';
+import { ProductInOrder } from '@modules/product/schemas/types-input/ProductInOrder';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
-import { Customer } from '@modules/customer/entities/Customer';
 import { Order } from '../entities/Order';
-import IOrderRepository from '../repository/IOrderRepository';
 import IOrderProductRepository from '../repository/IOrderProductRepository';
+import IOrderRepository from '../repository/IOrderRepository';
 
 export class OrderService {
   constructor(
@@ -90,7 +90,7 @@ export class OrderService {
     const resultMessateUrl = await this.mailProvider.sendEmail(
       email,
       `Order approved ${order.id}`,
-      order.id,
+      `Order ${order.id}`,
     );
     return resultMessateUrl;
   }
@@ -104,6 +104,6 @@ export class OrderService {
     }
     const { qttStock: qttInStock } = product;
     const { qtt: qttToBuy } = prodInOrder;
-    return qttInStock;
+    return qttInStock >= qttToBuy;
   }
 }
